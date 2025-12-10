@@ -1,26 +1,201 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <title>Vape Juice Shop</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vape Shop Mini App</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #fff;
+  }
+  header {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(90deg, #d34681, #e7aa51, #1800ad);
+    color: #fff;
+  }
+  header h1 { margin: 10px 0; }
+  .container { padding: 20px; }
+  select, input, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+  }
+  select, input { background-color: #1e1e1e; color: #fff; }
+  button {
+    background-color: #d34681;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  button:hover { background-color: #e7aa51; }
+  .hidden { display: none; }
+  .item-list button {
+    margin: 5px 0;
+    background-color: #1800ad;
+  }
+  .item-list button:hover { background-color: #d34681; }
+  .cart {
+    background-color: #1e1e1e;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+</style>
 </head>
 <body>
-  <h2>Выбери жидкость</h2>
-  <select id="product">
-    <option value="Juice 50mg">Juice 50mg</option>
-    <option value="Juice 65mg">Juice 65mg</option>
-  </select>
-  <input type="number" id="amount" placeholder="Количество" />
-  <button onclick="sendOrder()">Заказать</button>
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script>
-    function sendOrder() {
-      const product = document.getElementById('product').value;
-      const amount = document.getElementById('amount').value;
-      Telegram.WebApp.sendData(JSON.stringify({product, amount}));
-      alert('Заказ отправлен!');
-    }
-  </script>
+<!-- Главная страница -->
+<div id="page1" class="container">
+  <header>
+    <h1>Vape Shop</h1>
+    <p>Привет! Выбери город для доставки</p>
+  </header>
+  <select id="city">
+    <option value="">Выбери город</option>
+    <option value="Dortmund">Dortmund</option>
+    <option value="Cologne">Cologne</option>
+    <option value="Essen">Essen</option>
+  </select>
+  <button onclick="goToCatalog()">Продолжить</button>
+</div>
+
+<!-- Каталог -->
+<div id="page2" class="container hidden">
+  <h2>Выберите производителя</h2>
+  <div class="item-list" id="brand-list"></div>
+</div>
+
+<!-- Продукты -->
+<div id="page3" class="container hidden">
+  <h2>Выберите продукт</h2>
+  <div class="item-list" id="product-list"></div>
+</div>
+
+<!-- Вкусы -->
+<div id="page4" class="container hidden">
+  <h2>Выберите вкус и количество</h2>
+  <div class="item-list" id="flavor-list"></div>
+  <input type="number" id="quantity" value="1" min="1">
+  <button onclick="addToCart()">Добавить в корзину</button>
+  <button onclick="goToCheckout()">Дальше</button>
+</div>
+
+<!-- Чек -->
+<div id="page5" class="container hidden">
+  <h2>Ваш заказ</h2>
+  <div id="cart-summary" class="cart"></div>
+  <button onclick="sendOrder()">Отправить заказ</button>
+</div>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+const botData = Telegram.WebApp;
+let city = '';
+let selectedBrand = '';
+let selectedProduct = '';
+let selectedFlavor = '';
+let cart = [];
+
+// Данные каталога
+const brands = ['ELFBAR', 'CHASER', 'VOZOL'];
+const products = ['Жидкости', 'POD-системы'];
+const flavors = ['Strawberry', 'Mango', 'Mint', 'Tobacco'];
+
+// Главная страница → Каталог
+function goToCatalog() {
+  city = document.getElementById('city').value;
+  if(!city) { alert('Выберите город'); return; }
+  document.getElementById('page1').classList.add('hidden');
+  document.getElementById('page2').classList.remove('hidden');
+  showBrands();
+}
+
+// Показываем производителей
+function showBrands() {
+  const list = document.getElementById('brand-list');
+  list.innerHTML = '';
+  brands.forEach(b => {
+    const btn = document.createElement('button');
+    btn.innerText = b;
+    btn.onclick = () => { selectedBrand = b; showProducts(); };
+    list.appendChild(btn);
+  });
+}
+
+// Показываем продукты
+function showProducts() {
+  document.getElementById('page2').classList.add('hidden');
+  document.getElementById('page3').classList.remove('hidden');
+  const list = document.getElementById('product-list');
+  list.innerHTML = '';
+  products.forEach(p => {
+    const btn = document.createElement('button');
+    btn.innerText = p;
+    btn.onclick = () => { selectedProduct = p; showFlavors(); };
+    list.appendChild(btn);
+  });
+}
+
+// Показываем вкусы
+function showFlavors() {
+  document.getElementById('page3').classList.add('hidden');
+  document.getElementById('page4').classList.remove('hidden');
+  const list = document.getElementById('flavor-list');
+  list.innerHTML = '';
+  flavors.forEach(f => {
+    const btn = document.createElement('button');
+    btn.innerText = f;
+    btn.onclick = () => { selectedFlavor = f; alert(f + ' выбран'); };
+    list.appendChild(btn);
+  });
+}
+
+// Добавить в корзину
+function addToCart() {
+  const qty = parseInt(document.getElementById('quantity').value);
+  if(!selectedFlavor) { alert('Выберите вкус'); return; }
+  cart.push({brand: selectedBrand, product: selectedProduct, flavor: selectedFlavor, quantity: qty});
+  alert('Добавлено в корзину');
+}
+
+// Перейти к чеку
+function goToCheckout() {
+  document.getElementById('page4').classList.add('hidden');
+  document.getElementById('page5').classList.remove('hidden');
+  showCart();
+}
+
+// Показать корзину
+function showCart() {
+  const summary = document.getElementById('cart-summary');
+  summary.innerHTML = '';
+  let total = 0;
+  cart.forEach(item => {
+    const price = 10; // пример цены
+    total += price * item.quantity;
+    summary.innerHTML += `<p>${item.brand} | ${item.product} | ${item.flavor} | ${item.quantity}шт | ${price*item.quantity}€</p>`;
+  });
+  summary.innerHTML += `<h3>Итого: ${total}€</h3>`;
+}
+
+// Отправка заказа боту
+function sendOrder() {
+  const orderData = {
+    city: city,
+    items: cart
+  };
+  botData.sendData(JSON.stringify(orderData));
+  alert('Заказ отправлен!');
+}
+</script>
 </body>
 </html>
+
+
