@@ -8,8 +8,10 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
+  <!-- CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <main id="app" class="page page-home">
     <!-- Hero / Logo -->
@@ -45,18 +47,15 @@
       <div></div>
     </header>
 
-    <section class="grid producers-grid" id="producersGrid">
-      <!-- JS will fill producers -->
-    </section>
+    <section class="grid producers-grid" id="producersGrid"></section>
 
-    <!-- bottom panel with Back + Cart -->
     <nav class="bottom-panel">
       <button class="btn ghost" data-target="home">← Назад</button>
       <button class="btn primary" id="openCartBtn">Корзина (<span id="cartCount">0</span>)</button>
     </nav>
   </main>
 
-  <!-- Flavors / selection -->
+  <!-- Flavors page -->
   <main id="flavors" class="page page-hidden">
     <header class="page-header">
       <button class="link back" data-target="manufacturers">← Назад</button>
@@ -69,9 +68,7 @@
       <button class="type-btn" data-type="pod">POD-системы</button>
     </section>
 
-    <section class="grid flavors-grid" id="flavorsGrid">
-      <!-- 20 placeholder flavor cards -->
-    </section>
+    <section class="grid flavors-grid" id="flavorsGrid"></section>
 
     <nav class="bottom-panel">
       <button class="btn ghost" data-target="manufacturers">← Назад</button>
@@ -79,7 +76,7 @@
     </nav>
   </main>
 
-  <!-- Product Detail Modal (full screen) -->
+  <!-- Product modal -->
   <div id="productModal" class="modal-hidden">
     <div class="modal-backdrop"></div>
     <div class="modal-card" role="dialog" aria-modal="true">
@@ -91,7 +88,7 @@
 
       <div class="qty-row">
         <button class="qty-btn" id="qtyMinus">−</button>
-        <input type="number" id="qtyInput" min="1" value="1" />
+        <input type="number" id="qtyInput" min="1" value="1"/>
         <button class="qty-btn" id="qtyPlus">+</button>
       </div>
 
@@ -99,7 +96,7 @@
     </div>
   </div>
 
-  <!-- Cart / Receipt page -->
+  <!-- Cart -->
   <main id="cart" class="page page-hidden">
     <header class="page-header">
       <button class="link back" data-target="flavors">← Назад</button>
@@ -107,9 +104,7 @@
       <div></div>
     </header>
 
-    <section class="receipt" id="receiptBlock">
-      <!-- Filled by JS -->
-    </section>
+    <section class="receipt" id="receiptBlock"></section>
 
     <div class="receipt-actions">
       <button class="btn ghost" id="copyReceipt">Копировать чек</button>
@@ -128,7 +123,7 @@
     <div class="modal-card small" role="dialog">
       <button class="modal-close" data-close>✕</button>
       <h4>Информация</h4>
-      <p id="infoText">Здесь будет информация о зоне доставки и условиях. Заменишь позже в коде.</p>
+      <p id="infoText">Здесь будет информация о зоне доставки.</p>
       <button class="btn primary" data-close>Закрыть</button>
     </div>
   </div>
@@ -145,6 +140,8 @@
     </div>
   </div>
 
-  <script src="app.js" defer></script>
+  <!-- JS -->
+  <script defer src="app.js"></script>
+
 </body>
 </html>
