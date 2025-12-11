@@ -1,201 +1,150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vape Shop Mini App</title>
-<style>
-  body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #121212;
-    color: #fff;
-  }
-  header {
-    text-align: center;
-    padding: 30px 20px;
-    background: linear-gradient(90deg, #d34681, #e7aa51, #1800ad);
-    color: #fff;
-  }
-  header h1 { margin: 10px 0; }
-  .container { padding: 20px; }
-  select, input, button {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: none;
-    font-size: 16px;
-  }
-  select, input { background-color: #1e1e1e; color: #fff; }
-  button {
-    background-color: #d34681;
-    color: #fff;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  button:hover { background-color: #e7aa51; }
-  .hidden { display: none; }
-  .item-list button {
-    margin: 5px 0;
-    background-color: #1800ad;
-  }
-  .item-list button:hover { background-color: #d34681; }
-  .cart {
-    background-color: #1e1e1e;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Vape Juice — mini app</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <main id="app" class="page page-home">
+    <!-- Hero / Logo -->
+    <section class="hero">
+      <img src="assets/logo.svg" alt="Vape Juice" class="logo" id="logo">
+    </section>
 
-<!-- Главная страница -->
-<div id="page1" class="container">
-  <header>
-    <h1>Vape Shop</h1>
-    <p>Привет! Выбери город для доставки</p>
-  </header>
-  <select id="city">
-    <option value="">Выбери город</option>
-    <option value="Dortmund">Dortmund</option>
-    <option value="Cologne">Cologne</option>
-    <option value="Essen">Essen</option>
-  </select>
-  <button onclick="goToCatalog()">Продолжить</button>
-</div>
+    <!-- City selector -->
+    <section class="center-block">
+      <div class="city-card">
+        <div class="city-title">Город доставки</div>
+        <div class="city-list" role="tablist" aria-label="Выберите город">
+          <button class="city" data-city="Dortmund">Dortmund</button>
+          <button class="city" data-city="Essen">Essen</button>
+          <button class="city" data-city="Köln">Köln</button>
+          <button class="city" data-city="Hagen">Hagen</button>
+          <button class="info-btn" id="infoBtn" aria-label="Информация">i</button>
+        </div>
+      </div>
+    </section>
 
-<!-- Каталог -->
-<div id="page2" class="container hidden">
-  <h2>Выберите производителя</h2>
-  <div class="item-list" id="brand-list"></div>
-</div>
+    <!-- Bottom panel -->
+    <nav class="bottom-panel">
+      <button class="btn primary big" id="btnContinue">Продолжить →</button>
+    </nav>
+  </main>
 
-<!-- Продукты -->
-<div id="page3" class="container hidden">
-  <h2>Выберите продукт</h2>
-  <div class="item-list" id="product-list"></div>
-</div>
+  <!-- Manufacturers page -->
+  <main id="manufacturers" class="page page-hidden">
+    <header class="page-header">
+      <button class="link back" data-target="home">← Главная</button>
+      <div class="page-header-title">Выберите производителя</div>
+      <div></div>
+    </header>
 
-<!-- Вкусы -->
-<div id="page4" class="container hidden">
-  <h2>Выберите вкус и количество</h2>
-  <div class="item-list" id="flavor-list"></div>
-  <input type="number" id="quantity" value="1" min="1">
-  <button onclick="addToCart()">Добавить в корзину</button>
-  <button onclick="goToCheckout()">Дальше</button>
-</div>
+    <section class="grid producers-grid" id="producersGrid">
+      <!-- JS will fill producers -->
+    </section>
 
-<!-- Чек -->
-<div id="page5" class="container hidden">
-  <h2>Ваш заказ</h2>
-  <div id="cart-summary" class="cart"></div>
-  <button onclick="sendOrder()">Отправить заказ</button>
-</div>
+    <!-- bottom panel with Back + Cart -->
+    <nav class="bottom-panel">
+      <button class="btn ghost" data-target="home">← Назад</button>
+      <button class="btn primary" id="openCartBtn">Корзина (<span id="cartCount">0</span>)</button>
+    </nav>
+  </main>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-const botData = Telegram.WebApp;
-let city = '';
-let selectedBrand = '';
-let selectedProduct = '';
-let selectedFlavor = '';
-let cart = [];
+  <!-- Flavors / selection -->
+  <main id="flavors" class="page page-hidden">
+    <header class="page-header">
+      <button class="link back" data-target="manufacturers">← Назад</button>
+      <div class="page-header-title" id="flavorsTitle">Выбор вкуса</div>
+      <div></div>
+    </header>
 
-// Данные каталога
-const brands = ['ELFBAR', 'CHASER', 'VOZOL'];
-const products = ['Жидкости', 'POD-системы'];
-const flavors = ['Strawberry', 'Mango', 'Mint', 'Tobacco'];
+    <section class="types-row" id="typeSelect">
+      <button class="type-btn" data-type="liquid">Жидкости</button>
+      <button class="type-btn" data-type="pod">POD-системы</button>
+    </section>
 
-// Главная страница → Каталог
-function goToCatalog() {
-  city = document.getElementById('city').value;
-  if(!city) { alert('Выберите город'); return; }
-  document.getElementById('page1').classList.add('hidden');
-  document.getElementById('page2').classList.remove('hidden');
-  showBrands();
-}
+    <section class="grid flavors-grid" id="flavorsGrid">
+      <!-- 20 placeholder flavor cards -->
+    </section>
 
-// Показываем производителей
-function showBrands() {
-  const list = document.getElementById('brand-list');
-  list.innerHTML = '';
-  brands.forEach(b => {
-    const btn = document.createElement('button');
-    btn.innerText = b;
-    btn.onclick = () => { selectedBrand = b; showProducts(); };
-    list.appendChild(btn);
-  });
-}
+    <nav class="bottom-panel">
+      <button class="btn ghost" data-target="manufacturers">← Назад</button>
+      <button class="btn primary" id="openCartBtn2">Корзина (<span id="cartCount2">0</span>)</button>
+    </nav>
+  </main>
 
-// Показываем продукты
-function showProducts() {
-  document.getElementById('page2').classList.add('hidden');
-  document.getElementById('page3').classList.remove('hidden');
-  const list = document.getElementById('product-list');
-  list.innerHTML = '';
-  products.forEach(p => {
-    const btn = document.createElement('button');
-    btn.innerText = p;
-    btn.onclick = () => { selectedProduct = p; showFlavors(); };
-    list.appendChild(btn);
-  });
-}
+  <!-- Product Detail Modal (full screen) -->
+  <div id="productModal" class="modal-hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="product-img-placeholder"></div>
+      <h3 id="productName">Название товара</h3>
+      <p id="productMeta" class="muted">Производитель · Тип</p>
+      <div class="stock" id="productStock">В наличии: 12 шт</div>
 
-// Показываем вкусы
-function showFlavors() {
-  document.getElementById('page3').classList.add('hidden');
-  document.getElementById('page4').classList.remove('hidden');
-  const list = document.getElementById('flavor-list');
-  list.innerHTML = '';
-  flavors.forEach(f => {
-    const btn = document.createElement('button');
-    btn.innerText = f;
-    btn.onclick = () => { selectedFlavor = f; alert(f + ' выбран'); };
-    list.appendChild(btn);
-  });
-}
+      <div class="qty-row">
+        <button class="qty-btn" id="qtyMinus">−</button>
+        <input type="number" id="qtyInput" min="1" value="1" />
+        <button class="qty-btn" id="qtyPlus">+</button>
+      </div>
 
-// Добавить в корзину
-function addToCart() {
-  const qty = parseInt(document.getElementById('quantity').value);
-  if(!selectedFlavor) { alert('Выберите вкус'); return; }
-  cart.push({brand: selectedBrand, product: selectedProduct, flavor: selectedFlavor, quantity: qty});
-  alert('Добавлено в корзину');
-}
+      <button class="btn primary big" id="addToCartBtn">Добавить в корзину — 15€</button>
+    </div>
+  </div>
 
-// Перейти к чеку
-function goToCheckout() {
-  document.getElementById('page4').classList.add('hidden');
-  document.getElementById('page5').classList.remove('hidden');
-  showCart();
-}
+  <!-- Cart / Receipt page -->
+  <main id="cart" class="page page-hidden">
+    <header class="page-header">
+      <button class="link back" data-target="flavors">← Назад</button>
+      <div class="page-header-title">Корзина / Чек</div>
+      <div></div>
+    </header>
 
-// Показать корзину
-function showCart() {
-  const summary = document.getElementById('cart-summary');
-  summary.innerHTML = '';
-  let total = 0;
-  cart.forEach(item => {
-    const price = 10; // пример цены
-    total += price * item.quantity;
-    summary.innerHTML += `<p>${item.brand} | ${item.product} | ${item.flavor} | ${item.quantity}шт | ${price*item.quantity}€</p>`;
-  });
-  summary.innerHTML += `<h3>Итого: ${total}€</h3>`;
-}
+    <section class="receipt" id="receiptBlock">
+      <!-- Filled by JS -->
+    </section>
 
-// Отправка заказа боту
-function sendOrder() {
-  const orderData = {
-    city: city,
-    items: cart
-  };
-  botData.sendData(JSON.stringify(orderData));
-  alert('Заказ отправлен!');
-}
-</script>
+    <div class="receipt-actions">
+      <button class="btn ghost" id="copyReceipt">Копировать чек</button>
+      <button class="btn danger" id="clearCart">Очистить корзину</button>
+    </div>
+
+    <nav class="bottom-panel">
+      <button class="btn ghost" data-target="flavors">← Назад</button>
+      <button class="btn primary" id="orderBtn">Заказать</button>
+    </nav>
+  </main>
+
+  <!-- Info modal -->
+  <div id="infoModal" class="modal-hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card small" role="dialog">
+      <button class="modal-close" data-close>✕</button>
+      <h4>Информация</h4>
+      <p id="infoText">Здесь будет информация о зоне доставки и условиях. Заменишь позже в коде.</p>
+      <button class="btn primary" data-close>Закрыть</button>
+    </div>
+  </div>
+
+  <!-- Confirm clear modal -->
+  <div id="confirmModal" class="modal-hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card small" role="dialog">
+      <h4>Точно удалить все заказы?</h4>
+      <div class="row">
+        <button class="btn ghost" data-close>Нет</button>
+        <button class="btn danger" id="confirmClear">Да</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js" defer></script>
 </body>
 </html>
-
-
