@@ -1,147 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Vape Juice — mini app</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="index.css">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="styles.css">
+   <!--КАСТОМ-->
+   <link rel="shortcut icon" href="Vape Juice.png" type="image/x-icon">
+   <title>VapeJuice</title>
+
 </head>
 
+
 <body>
-  <main id="app" class="page page-home">
-    <!-- Hero / Logo -->
-    <section class="hero">
-      <img src="assets/logo.svg" alt="Vape Juice" class="logo" id="logo">
-    </section>
 
-    <!-- City selector -->
-    <section class="center-block">
-      <div class="city-card">
-        <div class="city-title">Город доставки</div>
-        <div class="city-list" role="tablist" aria-label="Выберите город">
-          <button class="city" data-city="Dortmund">Dortmund</button>
-          <button class="city" data-city="Essen">Essen</button>
-          <button class="city" data-city="Köln">Köln</button>
-          <button class="city" data-city="Hagen">Hagen</button>
-          <button class="info-btn" id="infoBtn" aria-label="Информация">i</button>
-        </div>
-      </div>
-    </section>
+      <!--=====PAGE1=====-->
+<div class="PAGE1">
 
-    <!-- Bottom panel -->
-    <nav class="bottom-panel">
-      <button class="btn primary big" id="btnContinue">Продолжить →</button>
-    </nav>
-  </main>
+   <a href="#" class="logo">
+      <img src="Vape Juice site logo.png" alt="Vape Juice logo">
+   </a>
 
-  <!-- Manufacturers page -->
-  <main id="manufacturers" class="page page-hidden">
-    <header class="page-header">
-      <button class="link back" data-target="home">← Главная</button>
-      <div class="page-header-title">Выберите производителя</div>
-      <div></div>
-    </header>
+   <div class="menu">
+      <button>HAGEN</button>
+      <button>DORTMUND</button>
+      <button>ESSEN</button>
+      <button>KÖLN</button>
+   </div>
 
-    <section class="grid producers-grid" id="producersGrid"></section>
+   <button class="next">ДАЛЬШЕ</button>
 
-    <nav class="bottom-panel">
-      <button class="btn ghost" data-target="home">← Назад</button>
-      <button class="btn primary" id="openCartBtn">Корзина (<span id="cartCount">0</span>)</button>
-    </nav>
-  </main>
+</div>
+      <!--===============-->
 
-  <!-- Flavors page -->
-  <main id="flavors" class="page page-hidden">
-    <header class="page-header">
-      <button class="link back" data-target="manufacturers">← Назад</button>
-      <div class="page-header-title" id="flavorsTitle">Выбор вкуса</div>
-      <div></div>
-    </header>
-
-    <section class="types-row" id="typeSelect">
-      <button class="type-btn" data-type="liquid">Жидкости</button>
-      <button class="type-btn" data-type="pod">POD-системы</button>
-    </section>
-
-    <section class="grid flavors-grid" id="flavorsGrid"></section>
-
-    <nav class="bottom-panel">
-      <button class="btn ghost" data-target="manufacturers">← Назад</button>
-      <button class="btn primary" id="openCartBtn2">Корзина (<span id="cartCount2">0</span>)</button>
-    </nav>
-  </main>
-
-  <!-- Product modal -->
-  <div id="productModal" class="modal-hidden">
-    <div class="modal-backdrop"></div>
-    <div class="modal-card" role="dialog" aria-modal="true">
-      <button class="modal-close" id="modalClose">✕</button>
-      <div class="product-img-placeholder"></div>
-      <h3 id="productName">Название товара</h3>
-      <p id="productMeta" class="muted">Производитель · Тип</p>
-      <div class="stock" id="productStock">В наличии: 12 шт</div>
-
-      <div class="qty-row">
-        <button class="qty-btn" id="qtyMinus">−</button>
-        <input type="number" id="qtyInput" min="1" value="1"/>
-        <button class="qty-btn" id="qtyPlus">+</button>
-      </div>
-
-      <button class="btn primary big" id="addToCartBtn">Добавить в корзину — 15€</button>
-    </div>
-  </div>
-
-  <!-- Cart -->
-  <main id="cart" class="page page-hidden">
-    <header class="page-header">
-      <button class="link back" data-target="flavors">← Назад</button>
-      <div class="page-header-title">Корзина / Чек</div>
-      <div></div>
-    </header>
-
-    <section class="receipt" id="receiptBlock"></section>
-
-    <div class="receipt-actions">
-      <button class="btn ghost" id="copyReceipt">Копировать чек</button>
-      <button class="btn danger" id="clearCart">Очистить корзину</button>
-    </div>
-
-    <nav class="bottom-panel">
-      <button class="btn ghost" data-target="flavors">← Назад</button>
-      <button class="btn primary" id="orderBtn">Заказать</button>
-    </nav>
-  </main>
-
-  <!-- Info modal -->
-  <div id="infoModal" class="modal-hidden">
-    <div class="modal-backdrop"></div>
-    <div class="modal-card small" role="dialog">
-      <button class="modal-close" data-close>✕</button>
-      <h4>Информация</h4>
-      <p id="infoText">Здесь будет информация о зоне доставки.</p>
-      <button class="btn primary" data-close>Закрыть</button>
-    </div>
-  </div>
-
-  <!-- Confirm clear modal -->
-  <div id="confirmModal" class="modal-hidden">
-    <div class="modal-backdrop"></div>
-    <div class="modal-card small" role="dialog">
-      <h4>Точно удалить все заказы?</h4>
-      <div class="row">
-        <button class="btn ghost" data-close>Нет</button>
-        <button class="btn danger" id="confirmClear">Да</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- JS -->
-  <script defer src="app.js"></script>
 
 </body>
+
+
 </html>
