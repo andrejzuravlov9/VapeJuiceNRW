@@ -34,6 +34,11 @@ body {
     align-items: center;
     color: #fff;
 }
+
+button, a {
+    -webkit-tap-highlight-color: transparent; 
+    outline: none; 
+}
 /*==============================*/
 
 
