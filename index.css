@@ -115,7 +115,7 @@ button {
 
 /*===== Меню =====*/
 .menu {
-    background: #090307; 
+    background: linear-gradient(#070205af, #090307);
     border-radius: 47px; /* скругление углов */
     padding: 13px 0px;
     box-shadow: 0 0 25px rgba(255, 0, 255, 0);
