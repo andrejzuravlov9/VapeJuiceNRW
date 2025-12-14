@@ -64,7 +64,7 @@ button {
 .logo-button .vape,
 .logo-button .juice {
     display: block; /* каждая строка на новой строке */
-    line-height: 0.8; /* расстояние между строками */
+    line-height: 0.9; /* расстояние между строками */
 }
 
 .logo-button .vape {
