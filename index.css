@@ -90,7 +90,7 @@ button {
     background: transparent;
     z-index: 2;
     position: absolute; /* изменено с relative на absolute для корректной тени */
-    top: 92px; /* смещение тени */
+    top: 99px; /* смещение тени */
     left: 3px;
     display: flex;
     align-items: center;
