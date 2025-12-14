@@ -1,12 +1,12 @@
 /*=====FONT=====*/
 @font-face {
     font-family: 'F1';
-    src: url('font/Magnifico.otf') format('opentype');
+    src: url('Magnifico.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'F2';
-    src: url('font/Monocraft.otf') format('woff2');
+    src: url('Monocraft.otf') format('woff2');
 }
 /*==============*/
 
