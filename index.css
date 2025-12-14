@@ -1,131 +1,120 @@
-/*=====FONT=====*/
+/*===== Шрифты =====*/
 @font-face {
     font-family: 'F1';
-    src: url('Magnifico.otf') format('opentype');
+    src: url('font/Magnifico.otf') format('opentype'); /* основной заголовочный шрифт */
 }
 
 @font-face {
     font-family: 'F2';
-    src: url('Monocraft.otf') format('woff2');
+    src: url('font/Monocraft.otf') format('woff2'); /* шрифт для кнопок и меню */
 }
-/*==============*/
 
-
-/*==============================*/
+/*===== Сброс стилей =====*/
 * {
-    box-sizing: border-box;
+    box-sizing: border-box; /* упрощает расчёт размеров элементов */
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Arial', sans-serif; /* базовый шрифт */
 }
 
 body {
-    min-height: 100vh;
-    background: radial-gradient(circle at top, #000000, #1b0814);
+    min-height: 100vh; /* чтобы body занимал всю высоту экрана */
+    background: radial-gradient(circle at top, #000000, #1b0814); /* фон */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
+    justify-content: center; /* центрируем контент по горизонтали */
+    align-items: center; /* центрируем контент по вертикали */
+    color: #fff; /* цвет текста по умолчанию */
 }
 
+/* Убираем стандартную подсветку кнопок на мобиле */
 button, a {
     -webkit-tap-highlight-color: transparent; 
     outline: none; 
 }
 
 button {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
+    -webkit-user-select: none; /* запрет на выделение текста */
+    -webkit-touch-callout: none; /* запрет на контекстное меню на iOS */
 }
 
-/*==============================*/
-
-
+/*===== Контейнер страницы =====*/
 .PAGE1 {
     position: relative;
-    width: 360px;
+    width: 360px; /* фиксированная ширина для мобильного вида */
     text-align: center;
 }
 
-/*=====LOGO=====*/
-
+/*===== Логотип =====*/
 .logo-button {
     width: 100%;
     padding: 16px 0;
-
-    font-size: 45px;;
-
+    font-size: 45px; /* размер текста */
     background: transparent;
     cursor: pointer;
-    z-index:3;
     position: relative;
-    top: 10px;
-    border: none;
+    z-index: 3; /* чтобы был поверх тени */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
+
 .logo-button .vape,
 .logo-button .juice {
-    display: block;   /* каждая строка — отдельный блок */
-    line-height: 0.8; /* регулируем расстояние */
+    display: block; /* каждая строка на новой строке */
+    line-height: 0.8; /* расстояние между строками */
 }
+
 .logo-button .vape {
     background: linear-gradient(90deg, #431043, #d34681);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent; /* градиентный текст */
     font-family: 'F1', sans-serif;
 }
+
 .logo-button .juice {
     color: #f7f3eb;
-    text-shadow: 0 0 15px rgb(255, 154, 2);
+    text-shadow: 0 0 15px rgb(255, 154, 2); /* лёгкая светящаяся тень */
     font-family: 'F1', sans-serif;
 }
+
+/* Тень текста */
 .shadow {
     width: 100%;
     padding: 16px 0;
-    color: rgb(0, 0, 0);
-    font-size: 45px;;
+    color: #000;
+    font-size: 45px;
     font-family: 'F1', sans-serif;
     background: transparent;
     z-index: 2;
-    position: relative;
-    top: -102px;
-    right: -3px;
-    border: none;
+    position: absolute; /* изменено с relative на absolute для корректной тени */
+    top: 10px; /* смещение тени */
+    left: 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+/* Картинка логотипа */
 .logo {
-    display: block;
-    margin-bottom: -150px;
-    text-align: center;
+    margin-bottom: -150px; /* сдвиг вниз */
     position: relative;
-    top: -250px;
+    top: -250px; /* сдвиг вверх для совмещения с текстом */
     z-index: 1;
 }
 
 .logo img {
-    width: 220px;
-    max-width: 100%;
-    z-index: 1;
+    width: 220px; /* ширина картинки */
+    max-width: 100%; /* адаптивность */
 }
-/*==============*/
 
-
-/*=====MENU=====*/
+/*===== Меню =====*/
 .menu {
     background: radial-gradient(circle at top, #000000, #1b0814);
-    border-radius: 30px;
+    border-radius: 30px; /* скругление углов */
     padding: 25px 15px;
     box-shadow: 0 0 25px rgba(255, 0, 255, 0.2);
-    margin-bottom: 0px;
     position: relative;
-    top: -80px;
+    top: -80px; /* поднимаем меню вверх */
 }
 
 .menu button {
@@ -135,13 +124,13 @@ button {
     font-size: 25px;
     font-weight: bold;
     letter-spacing: 2px;
-    color: #ffffff;
+    color: #fff;
     background: transparent;
     border: 1px solid rgba(255, 0, 255, 0.4);
     border-radius: 25px;
     cursor: pointer;
     text-shadow: 0 0 15px rgb(255, 183, 2);
-    transition: 0.3s;
+    transition: 0.3s; /* плавное изменение при hover */
     font-family: 'F2', sans-serif;
 }
 
@@ -149,17 +138,15 @@ button {
     background: rgba(255, 0, 255, 0.15);
     box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
 }
-/*==============*/
 
-
-/*=====button NEXT=====*/
+/*===== Кнопка ДАЛЬШЕ =====*/
 .next {
     width: 100%;
     padding: 16px 0;
     font-size: 30px;
     font-weight: bold;
     letter-spacing: 3px;
-    color: #ffffff;
+    color: #fff;
     background: transparent;
     border: 1px solid #ff6cff;
     border-radius: 30px;
@@ -173,4 +160,3 @@ button {
     background: rgba(255, 108, 255, 0.15);
     box-shadow: 0 0 20px rgba(255, 108, 255, 0.7);
 }
-/*=====================*/
