@@ -1,15 +1,17 @@
-/*===== Шрифты =====*/
+
+
+/*=============== Шрифты ===============*/
 @font-face {
     font-family: 'F1';
     src: url('font/Magnifico.otf') format('opentype'); /* основной заголовочный шрифт */
 }
-
 @font-face {
     font-family: 'F2';
     src: url('font/Monocraft.otf') format('woff2'); /* шрифт для кнопок и меню */
 }
 
-/*===== Сброс стилей =====*/
+
+/*=============== Сброс стилей ===============*/
 * {
     box-sizing: border-box; /* упрощает расчёт размеров элементов */
     margin: 0;
@@ -22,7 +24,6 @@ body {
     background: radial-gradient(circle at top, #000000, #1b0814); /* фон */
     display: flex;
     justify-content: center; /* центрируем контент по горизонтали */
-    align-items: center; /* центрируем контент по вертикали */
     color: #fff; /* цвет текста по умолчанию */
 }
 
@@ -46,6 +47,7 @@ button {
 
 /*===== Логотип =====*/
 .logo-button {
+    margin-top: 100px;
     width: 100%;
     padding: 16px 0;
     font-size: 45px; /* размер текста */
@@ -56,6 +58,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: none;
 }
 
 .logo-button .vape,
@@ -81,21 +84,23 @@ button {
 .shadow {
     width: 100%;
     padding: 16px 0;
-    color: #000;
+    color: #000000;
     font-size: 45px;
     font-family: 'F1', sans-serif;
     background: transparent;
     z-index: 2;
     position: absolute; /* изменено с relative на absolute для корректной тени */
-    top: 10px; /* смещение тени */
-    left: 0;
+    top: 92px; /* смещение тени */
+    left: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
 }
 
 /* Картинка логотипа */
 .logo {
+    margin-top: 80px;
     margin-bottom: -150px; /* сдвиг вниз */
     position: relative;
     top: -250px; /* сдвиг вверх для совмещения с текстом */
@@ -105,29 +110,44 @@ button {
 .logo img {
     width: 220px; /* ширина картинки */
     max-width: 100%; /* адаптивность */
+    z-index: 1; 
 }
 
 /*===== Меню =====*/
 .menu {
-    background: radial-gradient(circle at top, #000000, #1b0814);
-    border-radius: 30px; /* скругление углов */
-    padding: 25px 15px;
-    box-shadow: 0 0 25px rgba(255, 0, 255, 0.2);
+    background: #070205; 
+    border-radius: 47px; /* скругление углов */
+    padding: 13px 0px;
+    box-shadow: 0 0 25px rgba(255, 0, 255, 0);
     position: relative;
     top: -80px; /* поднимаем меню вверх */
+    width: 60%;
+    right: -70px;
+    border: 1px radial-gradient(circle at top, #ff00ff, #800080);
 }
 
+.menu::before {
+    content: "";
+    position: absolute;
+    inset: -1px;            /* толщина "тени" */
+    border-radius: inherit;  /* повторяет форму блока */
+    background: Linear-gradient(#070205, #290b1d, #af3482); /* цвет тени */
+    opacity: 0.6;
+    z-index: -1;  
+}
+
+
 .menu button {
-    width: 100%;
-    padding: 18px 0;
-    margin: 10px 0;
+    width: 80%;
+    padding: 10px 1px;
+    margin: 5px 1px;
     font-size: 25px;
     font-weight: bold;
     letter-spacing: 2px;
     color: #fff;
-    background: transparent;
-    border: 1px solid rgba(255, 0, 255, 0.4);
-    border-radius: 25px;
+    background: #1b081466;
+    border: 1px solid rgb(54, 2, 33);
+    border-radius: 100px;
     cursor: pointer;
     text-shadow: 0 0 15px rgb(255, 183, 2);
     transition: 0.3s; /* плавное изменение при hover */
@@ -149,7 +169,7 @@ button {
     color: #fff;
     background: transparent;
     border: 1px solid #ff6cff;
-    border-radius: 30px;
+    border-radius: 100px;
     text-shadow: 0 0 15px rgba(255, 108, 255, 0.9);
     cursor: pointer;
     transition: 0.3s;
