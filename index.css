@@ -1,9 +1,9 @@
 /*=============== Страницы ================*/
 .PAGE1 {
-    display: none;
+    display: block;
 }
 .PAGE2 {
-    display: block;
+    display: none;
 }
 
 
