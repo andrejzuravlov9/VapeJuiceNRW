@@ -1,10 +1,10 @@
 /*=============== Страницы ================*/
 .PAGE1 {
-    display: block;
+    display: none;
 }
 .PAGE2 {
-    display: none;
-} 
+    display: block;
+}
 
 
 
@@ -221,7 +221,7 @@ button {
 .info2 {
     position: relative;
     top: 60px;
-    font-size: 20px;
+    font-size: 25px;
     font-family: 'F2', sans-serif;
     color: #ffffff;
     text-shadow: 0 0 15px rgb(255, 183, 2);
@@ -241,6 +241,7 @@ button {
     align-items: start;
 }
 
+
 .menu2 .elfbar {
     width: 70%;
     padding: 10px;
@@ -253,6 +254,16 @@ button {
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    background: linear-gradient(#070205af, #090307);
+}
+.menu2 .elfbar::before {
+    content: "";
+    position: absolute;
+    inset: -1px;            /* толщина "тени" */
+    border-radius: inherit;  /* повторяет форму блока */
+    background: Linear-gradient(#070205, #290b1d, #af3482); /* цвет тени */
+    opacity: 0.6;
+    z-index: -1;  
 }
 .menu2 .elfbar img {
     width: 100%;
@@ -265,11 +276,21 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 12px;
-
+    background: linear-gradient(#070205af, #090307);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    position: relative;
+}
+.menu2 .chaser::before {
+    content: "";
+    position: absolute;
+    inset: -1px;            /* толщина "тени" */
+    border-radius: inherit;  /* повторяет форму блока */
+    background: Linear-gradient(#070205, #290b1d, #af3482); /* цвет тени */
+    opacity: 0.6;
+    z-index: -1;  
 }
 .menu2 .chaser img {
     width: 100%;
@@ -288,6 +309,16 @@ button {
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    background: linear-gradient(#070205af, #090307);
+}
+.menu2 .vozol::before {
+    content: "";
+    position: absolute;
+    inset: -1px;            /* толщина "тени" */
+    border-radius: inherit;  /* повторяет форму блока */
+    background: Linear-gradient(#070205, #290b1d, #af3482); /* цвет тени */
+    opacity: 0.6;
+    z-index: -1;  
 }
 .menu2 .vozol img {
     width: 100%;
@@ -300,11 +331,21 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 12px;
-
+    background: linear-gradient(#070205af, #090307);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    position: relative;
+}
+.menu2 .hqd::before {
+    content: "";
+    position: absolute;
+    inset: -1px;            /* толщина "тени" */
+    border-radius: inherit;  /* повторяет форму блока */
+    background: Linear-gradient(#070205, #290b1d, #af3482); /* цвет тени */
+    opacity: 0.6;
+    z-index: -1;  
 }
 .menu2 .hqd img {
     width: 100%;
@@ -318,6 +359,9 @@ button {
     gap: 10px;               /* отступ между кнопками */
     width: 100%;             /* если нужно, чтобы занимало всю ширину родителя */
     margin-top: 20px;        /* отступ сверху */
+    align-items: center;
+    justify-content: center;
+
 }
 
 .button-menu button {
@@ -327,6 +371,8 @@ button {
     border-radius: 12px;
     border: none;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -344,7 +390,8 @@ button {
     cursor: pointer;
     transition: 0.3s;
     font-family: 'F2', sans-serif;
-
+    align-items: center;
+    justify-content: center;
     border-top-left-radius: 20px;   /* верхний левый угол */
     border-bottom-left-radius: 20px;/* нижний левый угол */
     border-top-right-radius: 0;     /* верхний правый угол */
@@ -364,7 +411,8 @@ button {
     cursor: pointer;
     transition: 0.3s;
     font-family: 'F2', sans-serif;
-
+    align-items: center;
+    justify-content: center;
     border-top-left-radius: 0px;   /* верхний левый угол */
     border-bottom-left-radius: 0px;/* нижний левый угол */
     border-top-right-radius: 20px;     /* верхний правый угол */
