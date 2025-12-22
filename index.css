@@ -243,13 +243,13 @@ button {
 
 
 .menu2 .elfbar {
-    width: 70%;
+    width: 90%;
     padding: 10px;
     cursor: pointer;
     border: none;
     border-radius: 12px;
     position: relative;
-    right: -50px;
+    right: -10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -271,7 +271,7 @@ button {
 }
 
 .menu2 .chaser {
-    width: 70%;
+    width: 90%;
     padding: 10px;
     cursor: pointer;
     border: none;
@@ -298,13 +298,13 @@ button {
 }
 
 .menu2 .vozol {
-    width: 70%;
+    width: 90%;
     padding: 12px;
     cursor: pointer;
     border: none;
     border-radius: 12px;
     position: relative;
-    right: -50px;
+    right: -10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -326,7 +326,7 @@ button {
 }
 
 .menu2 .hqd {
-    width: 70%;
+    width: 90%;
     padding: 10px;
     cursor: pointer;
     border: none;
@@ -354,15 +354,22 @@ button {
 
 
 .button-menu {
-    display: flex;           /* включаем flex */
-    justify-content: space-between; /* чтобы кнопки растянулись по краям */
-    gap: 10px;               /* отступ между кнопками */
-    width: 100%;             /* если нужно, чтобы занимало всю ширину родителя */
-    margin-top: 20px;        /* отступ сверху */
-    align-items: center;
-    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
 
+    width: 100%;
+    padding: 10px;
+
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    align-items: center;
+
+    background: transparent; /* или rgba если хочешь подложку */
+    z-index: 999;
 }
+
 
 .button-menu button {
     flex: 1;                 /* равная ширина кнопок */
